@@ -51,22 +51,22 @@ fn get_expected(day int) ![]string {
 	return os.read_lines(file_name)!
 }
 
-fn pad_left(s string, width int, ch rune) string {
+fn pad_right(s string, width int, ch rune) string {
 	len := s.runes().len
 	if len >= width {
 		return s
 	}
-	return ch.str().repeat(width - len) + s
+	return s + ch.str().repeat(width - len)
 }
 
 fn run_solution[T](part u8, input T, expected []string, func fn (T) !string) ! {
 	mut watch := time.new_stopwatch()
 	solution := func(input)!
-	watch.stop()
 	dur := watch.elapsed()
 	exp := expected[part - 1] or { '??' }
+	txt := pad_right('Solution ${part}: ${solution} (took: ${dur.str()})', 50, `.`)
 	res := if solution == exp { '✅' } else { '❌' }
-	println('Solution ${part}: ${solution} (took: ${dur.str()})${pad_left(res, 30, `.`)}')
+	println(txt + res)
 }
 
 pub fn print_solution[T](day int, prepare fn ([]string) T, solve1 fn (T) !string, solve2 fn (T) !string) ! {
