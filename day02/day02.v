@@ -37,29 +37,31 @@ fn solve1(input []string) !string {
 }
 
 fn diff(s1 string, s2 string) ?int {
-  if s1.len != s2.len { return none }
-  mut idx := ?int(none)
-  mut n := 0
+	if s1.len != s2.len {
+		return none
+	}
+	mut idx := ?int(none)
+	mut n := 0
 
-  for i in 0..s1.len {
-    if s1[i] != s2[i] {
-      idx = i
-      n++
-    }
-  }
+	for i in 0 .. s1.len {
+		if s1[i] != s2[i] {
+			idx = i
+			n++
+		}
+	}
 
-  return if n == 1 { idx } else { none }
+	return if n == 1 { idx } else { none }
 }
 
 fn solve2(input []string) !string {
-  for i in 0..input.len {
-    for j in i..input.len {
-      if idx := diff(input[i], input[j]) {
-        return input[i][..idx] + input[i][idx+1..]
-      }
-    }
-  }
-	return '?'
+	for i in 0 .. input.len {
+		for j in i .. input.len {
+			if idx := diff(input[i], input[j]) {
+				return input[i][..idx] + input[i][idx + 1..]
+			}
+		}
+	}
+	return error('Not found')
 }
 
 pub fn main() ! {
