@@ -13,10 +13,10 @@ pub fn main() {
 			return
 		}
 		day := days[n - 1]
-		day()
+		day() or { println("Error") }
 		return
 	}
 	for day in days {
-		day()
+		day() or { println("Error: $err") }
 	}
 }

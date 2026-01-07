@@ -26,6 +26,6 @@ fn solve2(input []int) !string {
 	return n.str()
 }
 
-pub fn main() {
-	utils.print_solution(1, prepare, solve1, solve2) or { println('Error: ${err}') }
+pub fn main() ! {
+	utils.print_solution(1, prepare, solve1, solve2)!
 }
