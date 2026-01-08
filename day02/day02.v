@@ -6,33 +6,24 @@ fn prepare(input []string) ![]string {
 	return input
 }
 
-fn is_double(s string) bool {
-	arr := s.split('').sorted()
-	size := arr.len - 1
+fn is_repeated(s string, repeated int) bool {
+  mut counts := map[rune]int{}
 
-	for i in 0 .. size {
-		if arr[i] == arr[i + 1] && (i + 2 >= size || arr[i + 2] != arr[i]) {
-			return true
-		}
-	}
-	return false
-}
+  for r in s.runes() {
+    counts[r]++
+  }
 
-fn is_triple(s string) bool {
-	arr := s.split('').sorted()
-	size := arr.len - 2
-
-	for i in 0 .. size {
-		if arr[i] == arr[i + 1] && arr[i] == arr[i + 2] && (i + 3 >= size || arr[i + 3] != arr[i]) {
-			return true
-		}
-	}
-	return false
+  for _, n in counts {
+    if n == repeated {
+      return true
+    }
+  }
+  return false
 }
 
 fn solve1(input []string) !string {
-	d2 := input.filter(is_double).len
-	d3 := input.filter(is_triple).len
+	d2 := input.filter(is_repeated(it, 2)).len
+	d3 := input.filter(is_repeated(it, 3)).len
 	return (d2 * d3).str()
 }
 
