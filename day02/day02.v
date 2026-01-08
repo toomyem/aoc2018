@@ -2,7 +2,7 @@ module day02
 
 import utils
 
-fn prepare(input []string) []string {
+fn prepare(input []string) ![]string {
 	return input
 }
 

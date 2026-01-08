@@ -3,8 +3,8 @@ module day01
 import arrays
 import utils
 
-fn prepare(input []string) []int {
-	return input.filter(|s| s != '').map(|s| s.int())
+fn prepare(input []string) ![]int {
+	return input.filter(it != '').map(it.int())
 }
 
 fn solve1(input []int) !string {

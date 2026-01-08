@@ -75,9 +75,9 @@ fn run_solution[T](part u8, input T, expected []string, func fn (T) !string) ! {
 	println(txt + res)
 }
 
-pub fn print_solution[T](day int, prepare fn ([]string) T, solve1 fn (T) !string, solve2 fn (T) !string) ! {
+pub fn print_solution[T](day int, prepare fn ([]string) !T, solve1 fn (T) !string, solve2 fn (T) !string) ! {
 	println('===== Day $day:')
-	input := prepare(get_input(day)!)
+	input := prepare(get_input(day)!)!
 	expected := get_expected(day)!
 
 	run_solution(1, input, expected, solve1)!
