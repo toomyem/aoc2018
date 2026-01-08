@@ -58,14 +58,17 @@ fn solve1(input []Rect) !string {
 }
 
 fn solve2(input []Rect) !string {
-  LOOP:
   for r1 in input {
+    mut overlap := false
     for r2 in input {
       if r1.id != r2.id && r1.overlaps(r2) {
-        continue LOOP
+        overlap = true
+        break
       }
     }
-    return r1.id
+    if !overlap {
+      return r1.id
+    }
   }
   return error("Not found?")
 }
