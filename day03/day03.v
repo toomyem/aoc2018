@@ -47,9 +47,7 @@ fn solve1(input []Rect) !string {
 	mut c := 0
 	for x in min_x .. max_x {
 		for y in min_y .. max_y {
-			if input.count(fn [x, y] (r Rect) bool {
-				return r.contains(x, y)
-			}) >= 2 {
+			if input.count(fn [x, y] (r Rect) bool { return r.contains(x, y) }) >= 2 {
 				c += 1
 			}
 		}
