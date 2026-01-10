@@ -5,11 +5,11 @@ import regex
 import math.stats
 
 struct Rect {
-  id string
-	x int
-	y int
-	w int
-	h int
+	id string
+	x  int
+	y  int
+	w  int
+	h  int
 }
 
 fn prepare(input []string) ![]Rect {
@@ -21,11 +21,11 @@ fn prepare(input []string) ![]Rect {
 			panic('${line} not matches')
 		}
 		return Rect{
-		  id: re.get_group_by_name(line, 'id')
-			x: re.get_group_by_name(line, 'x').int()
-			y: re.get_group_by_name(line, 'y').int()
-			w: re.get_group_by_name(line, 'w').int()
-			h: re.get_group_by_name(line, 'h').int()
+			id: re.get_group_by_name(line, 'id')
+			x:  re.get_group_by_name(line, 'x').int()
+			y:  re.get_group_by_name(line, 'y').int()
+			w:  re.get_group_by_name(line, 'w').int()
+			h:  re.get_group_by_name(line, 'h').int()
 		}
 	})
 }
@@ -47,8 +47,15 @@ fn solve1(input []Rect) !string {
 	mut c := 0
 	for x in min_x .. max_x {
 		for y in min_y .. max_y {
-			if input.count(fn [x, y] (r Rect) bool { return r.contains(x, y) }) >= 2 {
-				c += 1
+			mut n := 0
+			for r in input {
+				if r.contains(x, y) {
+					n += 1
+				}
+				if n >= 2 {
+					c += 1
+					break
+				}
 			}
 		}
 	}
@@ -56,19 +63,19 @@ fn solve1(input []Rect) !string {
 }
 
 fn solve2(input []Rect) !string {
-  for r1 in input {
-    mut overlap := false
-    for r2 in input {
-      if r1.id != r2.id && r1.overlaps(r2) {
-        overlap = true
-        break
-      }
-    }
-    if !overlap {
-      return r1.id
-    }
-  }
-  return error("Not found?")
+	for r1 in input {
+		mut overlap := false
+		for r2 in input {
+			if r1.id != r2.id && r1.overlaps(r2) {
+				overlap = true
+				break
+			}
+		}
+		if !overlap {
+			return r1.id
+		}
+	}
+	return error('Not found?')
 }
 
 pub fn main() ! {
