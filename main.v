@@ -5,19 +5,20 @@ import strconv
 import day01
 import day02
 import day03
+import day04
 
 pub fn main() {
-	days := [day01.main, day02.main, day03.main]
+	days := [day01.main, day02.main, day03.main, day04.main]
 	if os.args.len == 2 {
 		n := strconv.atoi(os.args[1]) or {
 			println('Invalid day number')
 			return
 		}
 		day := days[n - 1]
-		day() or { println("Error: $err") }
-		return
-	}
-	for day in days {
-		day() or { println("Error: $err") }
+		day() or { println('Error: ${err}') }
+	} else {
+		for day in days {
+			day() or { println('Error: ${err}') }
+		}
 	}
 }

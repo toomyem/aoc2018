@@ -7,7 +7,7 @@ import time
 fn get_input(day int) ![]string {
 	file_name := 'input${day:02}.txt'
 	if !os.is_file(file_name) {
-		url := 'https://adventofcode.com/2018/day/$day/input'
+		url := 'https://adventofcode.com/2018/day/${day}/input'
 		println('Trying to fetch input from AoC site...')
 		session := os.environ()['SESSION']
 		if session == '' {
@@ -17,7 +17,7 @@ fn get_input(day int) ![]string {
 			'session': session
 		}
 		http.download_file_with_cookies(url, file_name, cookies) or {
-			panic('Cannot download $url: $err')
+			panic('Cannot download ${url}: ${err}')
 		}
 	}
 	return os.read_lines(file_name)!
@@ -70,13 +70,13 @@ fn run_solution[T](part u8, input T, expected []string, func fn (T) !string) ! {
 	solution := func(input)!
 	dur := watch.elapsed()
 	exp := expected[part - 1] or { '??' }
-	txt := pad_right('Solution $part: $solution (took: ${dur.str()})', 60, `.`)
+	txt := pad_right('Solution ${part}: ${solution} (took: ${dur.str()})', 60, `.`)
 	res := if solution == exp { '✅' } else { '❌' }
 	println(txt + res)
 }
 
 pub fn print_solution[T](day int, prepare fn ([]string) !T, solve1 fn (T) !string, solve2 fn (T) !string) ! {
-	println('===== Day $day:')
+	println('===== Day ${day}:')
 	input := prepare(get_input(day)!)!
 	expected := get_expected(day)!
 
